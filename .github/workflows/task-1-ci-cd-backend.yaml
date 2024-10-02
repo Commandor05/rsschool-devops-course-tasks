@@ -31,6 +31,7 @@ jobs:
           audience: ${{ env.AUDIENCE }}
           aws-region: ${{ env.REGION_ID }}
           role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
+          role-session-name: ${{ ROLE }}
       - name: Terraform Init
         run: terraform init
       - name: Terraform Format
