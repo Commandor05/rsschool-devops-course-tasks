@@ -24,7 +24,7 @@ jobs:
         with:
           audience: ${{ env.AUDIENCE }}
           aws-region: ${{ env.REGION_ID }}
-          role-to-assume: ${{ env.ROLE }}
+          role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
       - name: Terraform Init
         run: terraform init
       - name: Terraform Format
@@ -40,7 +40,7 @@ jobs:
         with:
           audience: ${{ env.AUDIENCE }}
           aws-region: ${{ env.REGION_ID }}
-          role-to-assume: ${{ env.ROLE }}
+          role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
       - name: Terraform Init
         run: terraform init
       - name: Terraform Plan
@@ -56,7 +56,7 @@ jobs:
         with:
           audience: ${{ env.AUDIENCE }}
           aws-region: ${{ env.REGION_ID }}
-          role-to-assume: ${{ env.ROLE }}
+          role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
       - name: Terraform Init
         run: terraform init
       - name: Terraform Apply
