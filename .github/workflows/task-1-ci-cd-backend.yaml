@@ -5,10 +5,10 @@ on:
   pull_request:
     branches: ["main", "task_1"]
 env:
-  TF_VERSION: '1.9.6'
-  REGION_ID: 'eu-north-1'
-  ROLE: 'GitHubActions'
-  AUDIENCE: 'sts.amazonaws.com'
+  TF_VERSION: "1.9.6"
+  REGION_ID: "eu-north-1"
+  ROLE: "GitHubActions"
+  AUDIENCE: "sts.amazonaws.com"
 permissions:
   id-token: write
   contents: read
@@ -22,7 +22,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          audience:  ${{ env.AUDIENCE }}
+          audience: ${{ env.AUDIENCE }}
           aws-region: ${{ env.REGION_ID }}
           role-to-assume: ${{ env.ROLE }}
       - name: Terraform Init
@@ -38,9 +38,9 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          audience:  ${{ env.AUDIENCE }}
+          audience: ${{ env.AUDIENCE }}
           aws-region: ${{ env.REGION_ID }}
-          role-to-assume:  ${{ env.ROLE }}
+          role-to-assume: ${{ env.ROLE }}
       - name: Terraform Init
         run: terraform init
       - name: Terraform Plan
@@ -54,10 +54,10 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          audience:  ${{ env.AUDIENCE }}
+          audience: ${{ env.AUDIENCE }}
           aws-region: ${{ env.REGION_ID }}
-          role-to-assume:  ${{ env.ROLE }}
+          role-to-assume: ${{ env.ROLE }}
       - name: Terraform Init
         run: terraform init
       - name: Terraform Apply
-        terraform apply -input=false tfplan
+        run: terraform apply -input=false tfplan
