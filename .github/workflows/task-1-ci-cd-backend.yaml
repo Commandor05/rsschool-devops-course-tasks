@@ -1,0 +1,63 @@
+name: Basic Terraform workflow
+on:
+  push:
+    branches: ["main", "task_1"]
+  pull_request:
+    branches: ["main", "task_1"]
+env:
+  TF_VERSION: '1.9.6'
+  REGION_ID: 'eu-north-1'
+  ROLE: 'GitHubActions'
+  AUDIENCE: 'sts.amazonaws.com'
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  terraform-check:
+    name: Terraform Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          audience:  ${{ env.AUDIENCE }}
+          aws-region: ${{ env.REGION_ID }}
+          role-to-assume: ${{ env.ROLE }}
+      - name: Terraform Init
+        run: terraform init
+      - name: Terraform Format
+        run: terraform fmt -check
+  terraform-plan:
+    name: Terraform Plan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          audience:  ${{ env.AUDIENCE }}
+          aws-region: ${{ env.REGION_ID }}
+          role-to-assume:  ${{ env.ROLE }}
+      - name: Terraform Init
+        run: terraform init
+      - name: Terraform Plan
+        run: terraform plan -input=false
+  terraform-apply:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          audience:  ${{ env.AUDIENCE }}
+          aws-region: ${{ env.REGION_ID }}
+          role-to-assume:  ${{ env.ROLE }}
+      - name: Terraform Init
+        run: terraform init
+      - name: Terraform Apply
+        terraform apply -input=false tfplan
